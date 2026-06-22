@@ -1,13 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        :root {
+            --bg: #0b1220;
+            --panel: #111a2a;
+            --accent: #0ea5a4;
+            --text: #e6eef8;
+            --muted: #94a3b8
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            min-height: 100%;
+            font-family: Segoe UI, Roboto, Arial, sans-serif;
+            background: radial-gradient(circle at top, #11203b 0%, #060911 65%, #020408 100%);
+            color: var(--text)
+        }
+
+        body {
+            line-height: 1.5
+        }
+
+        header {
+            padding: 24px 28px;
+            text-align: center
+        }
+
+        header h1 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            letter-spacing: .08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            animation: slideDown .8s ease both
+        }
+
+        nav ul {
+            display: inline-flex;
+            gap: 18px;
+            list-style: none;
+            padding: 0
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 999px;
+            transition: .22s
+        }
+
+        nav a:hover {
+            color: #fff;
+            background: rgba(14, 165, 164, .15);
+            transform: translateY(-2px)
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, .08);
+            margin: 24px 0
+        }
+
+        main {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        section,
+        article {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 22px;
+            padding: 26px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, .22);
+            animation: fadeIn .7s ease both
+        }
+
+        section h2,
+        article h2 {
+            font-size: 1.5rem;
+            margin-bottom: 14px;
+            color: #fff
+        }
+
+        section p,
+        article p,
+        section li {
+            color: var(--muted);
+            font-size: 1rem
+        }
+
+        ul {
+            display: grid;
+            gap: 12px;
+            padding-left: 18px
+        }
+
+        li strong {
+            color: #fff
+        }
+
+        .gallery-section {
+            display: grid;
+            gap: 18px;
+            margin-top: 14px
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform .28s, box-shadow .28s
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 28px 80px rgba(0, 0, 0, .32)
+        }
+
+        .card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s ease, filter .3s
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.08)
+        }
+
+        .card figcaption {
+            padding: 16px;
+            background: rgba(1, 7, 18, .88);
+            color: var(--muted);
+            font-size: .95rem;
+            text-align: center
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(1, 8, 20, .95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s
+        }
+
+        .overlay.visible {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .overlay-content {
+            position: relative;
+            max-width: 92vw;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px
+        }
+
+        .overlay img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 22px;
+            box-shadow: 0 28px 90px rgba(0, 0, 0, .45);
+            animation: zoomIn .34s ease both
+        }
+
+        .overlay-caption {
+            color: var(--muted);
+            text-align: center;
+            max-width: 740px;
+            font-size: 1rem
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(14, 165, 164, .18);
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: grid;
+            place-items: center
+        }
+
+        footer {
+            padding: 28px 24px 40px;
+            text-align: center
+        }
+
+        footer h3 {
+            margin-bottom: 14px;
+            color: #fff
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        footer small {
+            color: var(--muted)
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(.96)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
 
     </style>
 </head>
+
 <body>
     <header>
         <h1>IIT Campus</h1>
@@ -23,44 +294,62 @@
     <main>
         <section>
             <h2>Our Mission</h2>
-            <p>Located in the heart of colombo, the iit is dedicated to empowering the next generation 
-                of software engineers. We focus on bridging the gap between theoretical computer science
-                 and practical, industry-ready skills.</p>
+            <p>Located in the heart of Colombo, the IIT is dedicated to empowering the next generation of software
+                engineers. We focus on bridging the gap between theoretical computer science and practical,
+                industry-ready skills.</p>
         </section>
-
         <article>
             <h2>Our History</h2>
-            <p>Founded with a passion for code, our institute started as a small gathering of tech
-                 enthusiasts. Today, we offer comprehensive programs ranging from foundational IT to 
-                 advanced full-stack development. We pride ourselves on hands-on learning, collaborative 
-                 environments, and a community-driven approach to technology.</p>
+            <p>Founded with a passion for code, our institute started as a small gathering of tech enthusiasts. Today,
+                we offer comprehensive programs ranging from foundational IT to advanced full-stack development. We
+                pride ourselves on hands-on learning, collaborative environments, and a community-driven approach to
+                technology.</p>
         </article>
-
         <section>
             <h2>Why Choose Us?</h2>
             <ul>
-                <li><strong>Expert Instructors:</strong> Learn directly from industry professionals 
-                    active in full-stack web development, system architecture, and software engineering.</li>
-                <li><strong>Practical Curriculum:</strong> Deep dives into modern frameworks and languages 
-                    including Java, React, PHP, and MySQL.</li>
-                <li><strong>Community Focus:</strong> Join a network of passionate developers, participate 
-                    in local tech events, and collaborate on real-world digital projects.</li>
+                <li><strong>Expert Instructors:</strong> Learn directly from industry professionals active in full-stack
+                    web development, system architecture, and software engineering.</li>
+                <li><strong>Practical Curriculum:</strong> Deep dives into modern frameworks and languages including
+                    Java, React, PHP, and MySQL.</li>
+                <li><strong>Community Focus:</strong> Join a network of passionate developers, participate in local tech
+                    events, and collaborate on real-world digital projects.</li>
             </ul>
         </section>
-
+        <section class="gallery-section">
+            <h2>Campus Highlights</h2>
+            <div class="gallery">
+                <figure class="card">
+                    <img src="Assets/logo.png" alt="Institute logo"
+                        data-caption="Brand mark and identity for the campus">
+                    <figcaption>Institute Logo</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="Assets/Screenshot 2026-06-21 152523.png" alt="Workshop session"
+                        data-caption="Interactive workshop session where learners collaborate">
+                    <figcaption>Workshop Session</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="Assets/Screenshot 2026-06-21 152946.png" alt="Lab environment"
+                        data-caption="Modern lab environment with hands-on equipment">
+                    <figcaption>Lab Environment</figcaption>
+                </figure>
+                <figure class="card">
+                    <img src="Assets/Screenshot 2026-06-21 153420.png" alt="Group project"
+                        data-caption="Students collaborating on a group project">
+                    <figcaption>Group Collaboration</figcaption>
+                </figure>
+            </div>
+        </section>
     </main>
-    <hr>
-
-    <footer>
-        <h3>Get in Touch</h3>
-        <address>
-            <p><strong>IIT campus</strong></p>
-            <p>Colombo, Western Province<br>
-            Sri Lanka</p>
-            <p>Email: <a href="#">IITcampus@gmail.com</a></p>
-        </address>
-        <p><small>&copy; 2026 IIT campus. All rights reserved.</small></p>
-    </footer>
-    
+    <div class="overlay" id="overlay">
+        <div class="overlay-content">
+            <button class="close-btn" id="close">×</button>
+            <img id="overlay-img" src="" alt="Expanded image">
+            <div class="overlay-caption" id="overlay-caption"></div>
+        </div>
+    </div>
+   
 </body>
+
 </html>
