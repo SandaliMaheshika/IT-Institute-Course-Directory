@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Student Registration Form</h1>
+        
+            <div><h3>Student Information</h3></div>
+            <form>
+            <label for="fullname">Full Name:</label>
+            <input type="text" name="fullname" placeholder="Enter your full name" required><br><br>
+    
+            <label for="initials">Name with Initial:</label>
+            <input type="text" name="initials" placeholder="Enter your name with initial" required><br><br>
+    
+            <label for="course">Course:</label>
+            <select name="course" required>
+                <option value="">Select Course</option>
+                <option value="computer-science">Computer Science</option>
+                <option value="software-engineering">Software Engineering</option>
+                <option value="data-science">Data Science</option>
+            </select><br><br>
+    
+    
+    
+            <label for="gender">Gender:</label>
+            <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+    
+            </select><br><br>
+    
+            <label for="dob">Date of Birth:</label>
+            <input type="date" name="dob" placeholder="Enter your DOB""><br><br>
+    
+           
+            <label for=" address">Address:</label><br>
+            <textarea name="address" rows="4" cols="50" placeholder="Enter your address"></textarea><br><br>
+            
+            <label for="contact">Contact Number:</label>
+            <input type="tel" name="contact" placeholder="Enter your contact number" required><br><br>
+    
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Enter your email" required><br><br>
+        </form>
+        <div>
+            <h3>Parent/Guardian Information</h3>
+            <form>
+                <label for="parent-name">Parent/Guardian Name:</label>
+                <input type="text" name="parent-name" placeholder="Enter parent/guardian name" required><br><br>
+        
+                <label for="parent-contact">Parent/Guardian Contact Number:</label>
+                <input type="tel" name="parent-contact" placeholder="Enter parent/guardian contact number" required><br><br>
+        
+                <label for="parent-email">Parent/Guardian Email:</label>
+                <input type="email" name="parent-email" placeholder="Enter parent/guardian email" required><br><br>
+
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+    
+            
+    
+            
+        
+    </div>
+</body>
+
+</html>
